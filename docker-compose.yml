@@ -1,0 +1,26 @@
+version: '3.2'
+services:
+  web:
+    build: .
+    command:
+      - default
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    volumes:
+      - .:/hoytrabajas
+      - gems:/usr/local/bundle
+    stdin_open: true
+    tty: true
+
+  postgres:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  gems:
+  postgres_data:
